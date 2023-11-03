@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3030;
 const app = express()
 
 app.use(cors({
-    origin: ['http://localhost:5173','http://127.0.0.1:5500'],
+    origin: ['http://localhost:5173','http://127.0.0.1:5500','https://shorturl-front.onrender.com'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     optionsSuccessStatus:200
 }))
