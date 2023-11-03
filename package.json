@@ -1,0 +1,17 @@
+{
+    "name": "shrotedurl",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "install-sever":"cd Backend npm i cors && npm i shortid && npm i express && npm i dotenv && npm i nodemon && npm i shortid",
+      "start-server":"cd backend && npm start ",
+      "install-clinet" :"cd Frontend cd front-url-short && npm install",
+      "build-client" : "cd Frontend cd front-url-short && npm run build",
+      "start-client": "cd Frontend cd front-url-short && npm run dev"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }
