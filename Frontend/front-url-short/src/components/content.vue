@@ -112,10 +112,10 @@ const toRedirect = async() => {
         </thead>
         <tbody class="">
           <tr class="text-white text-center " v-for="(items, index) in showAllUrl" :key="items.id" >
-            <td >{{ index + 1 }}</td>
-            <td>{{ items.shortUrl }}</td>
-            <td >{{ items.numOfClick }}</td>
-            <td class="flex text-center justify-center items-center"><img :src="qrCode" alt="qrCode" class="w-1/12 h-1/12"></td>
+            <td class="border border-white">{{ index + 1 }}</td>
+            <td class="border border-white">{{ items.shortUrl }}</td>
+            <td class="border border-white">{{ items.numOfClick }}</td>
+            <td class="border border-white flex justify-center items-center h-full"><img :src="qrCode" alt="qrCode" class="w-24 h-24 border border-red-400"></td>
           </tr>
         </tbody>
       </table>

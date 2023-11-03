@@ -1,1 +1,0 @@
-# Synerry_Hw

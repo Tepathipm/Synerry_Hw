@@ -35,9 +35,9 @@ router.post('/', async(req, res) => {
 router.get('/:shortUrl', async(req, res) => {
     const { shortUrl } = req.params;
     await collection.updateOne({ shortUrl }, {$inc : { numOfClick : 1 }})
-    let checkNumOfClick = await collection.find({ shortUrl : shortUrl}).toArray()
+    let showLongToRedirect = await collection.find({ shortUrl: shortUrl }, { _id: 0, longUrl: 1, shortUrl: 0, numOfClick: 0 }).toArray();
 
-    res.send(checkNumOfClick).status(200)
+    res.send(showLongToRedirect).status(200)
 })
 
 router.delete('/:shortUrl', async(req, res) => {
