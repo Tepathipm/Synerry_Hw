@@ -3,7 +3,6 @@ import cors from "cors"
 import "./config/dotenv.js"
 import "express-async-errors"
 import shortUrl from './routes/shortUrl.js'
-import { createProxyMiddleware } from "http-proxy-middleware"
 
 
 const PORT = process.env.PORT || 3030;
