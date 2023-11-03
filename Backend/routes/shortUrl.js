@@ -3,6 +3,7 @@ import db from "../config/database.js"
 import { ObjectId } from "mongodb";
 import shortid from "shortid";
 
+
 const router = express.Router();
 let collection = await db.collection("url");
 const urlFormatRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
@@ -24,30 +25,47 @@ router.post('/', async(req, res) => {
     } else if(existingDocument){
         return res.status(400).json({ error: 'This URL already exists' });
     }
+    const shortId = shortid.generate()
+    const shortUrl = `http://localhost:3030/shorturl/${shortId}`
+    await collection.insertOne({ longUrl , shortUrl, numOfClick, shortId})
+    const findByShortId = await collection.find({ shortId : shortId }).toArray()
+    // console.log(findByLongUrl);
+    res.json(findByShortId).status(200)
+})
+
+// router.get('/:shortUrl', async(req, res) => {
+//     const  shortUrl2  = req.params.shortUrl;
+//     // await collection.updateOne({ shortId : shortUrl2 }, {$inc : { numOfClick : 1 }})
+//     let showLongToRedirect = await collection.findOneAndUpdate({ shortId : shortUrl2 } , {$inc : { numOfClick : 1 }})
+//     return res.redirect(showLongToRedirect.longUrl)
+//     // res.redirect(showLongToRedirect.longUrl)
+//     // res.send(showLongToRedirect.longUrl).status(200)
     
-    const shortUrl = shortid.generate(3)
-    await collection.insertOne({ longUrl, shortUrl, numOfClick,})
-    const findByLongUrl = await collection.find({ longUrl : longUrl }).toArray()
+// })
 
-    res.send(findByLongUrl).status(200)
-})
-
-router.get('/:shortUrl', async(req, res) => {
-    const { shortUrl } = req.params;
-    await collection.updateOne({ shortUrl }, {$inc : { numOfClick : 1 }})
-    let showLongToRedirect = await collection.find({ shortUrl: shortUrl }, { _id: 0, longUrl: 1, shortUrl: 0, numOfClick: 0 }).toArray();
-
-    res.send(showLongToRedirect).status(200)
-})
+router.get('/:shortUrl', async (req, res) => {
+    const shortUrl2 = req.params.shortUrl;
+    const showLongToRedirect = await collection.findOneAndUpdate(
+      { shortId: shortUrl2 },
+      { $inc: { numOfClick: 1 } }
+    );
+  
+    if (showLongToRedirect) {
+      res.redirect(301, showLongToRedirect.longUrl);
+    } else {
+      res.status(404).send('Not Found');
+    }
+  });
+  
 
 router.delete('/:shortUrl', async(req, res) => {
-    const { shortUrl } = req.params;
-    await collection.deleteOne({shortUrl})
-    const existingDocument = await collection.findOne({ shortUrl: shortUrl });
+    const  shortUrl2  = req.params.shortUrl;
+    const existingDocument = await collection.findOne({ shortId : shortUrl2 });
     if(!existingDocument){
         res.status(400).json({ error : 'This URL does not exist'})
+    }else {
+        await collection.deleteOne({shortId : shortUrl2})
+        res.status(200).json({ message : 'This URL has been Deleted'})
     }
-
-    res.status(200).json({ message : 'This URL has been Deleted'})
 })
 export default router;

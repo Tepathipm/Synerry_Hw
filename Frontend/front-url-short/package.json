@@ -8,7 +8,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "qrcode.vue": "^3.4.1",
     "vue": "^3.3.4",
+    "vue-qriously": "^1.1.1",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
