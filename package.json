@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "install-server":"cd Backend && npm i && npm i cors && npm i shortid && npm i express && npm i dotenv && npm i nodemon && npm i shortid && npm i express-async-errors && npm i mongodb",
-    "start-server":"cd Backend && npm start",
+    "start-server":"cd Backend npm start",
     "install-client" :"cd Frontend && cd front-url-short && npm install --force",
     "build-client" : "cd Frontend && cd front-url-short && npm run build",
     "start-client": "cd Frontend && cd front-url-short && npm run dev"
